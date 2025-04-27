@@ -4,7 +4,6 @@ type UserProps = {
     lastName: string;
   };
 };
-
 function User({ user }: UserProps) {
   return (
     <h2>

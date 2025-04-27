@@ -1,5 +1,27 @@
 import "./App.css";
 import TaskHeader from "./components/TaskHeader";
+import TaskList from "./components/TaskList";
+import User from "./components/User";
+
+const user = {
+  firstName: "Salar",
+  lastName: "Gholami",
+};
+
+const tasks = [
+  {
+    id: 1,
+    title: "title #1",
+  },
+  {
+    id: 2,
+    title: "title #2",
+  },
+  {
+    id: 3,
+    title: "title #3",
+  },
+];
 
 
 const user = {
