@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const NoteList: React.FC = () => {
   const [note, setNote] = useState("");
 
   const [notes, setNotes] = useState<string[]>([]);
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleAddNote = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,6 +22,18 @@ const NoteList: React.FC = () => {
     console.log(e);
   };
 
+  useEffect(() => {
+    // 1.optional chaining
+    // inputRef.current?.focus();
+
+    // 2.type guard
+    if (!inputRef.current) return;
+    
+    inputRef.current.focus();
+    // ... کدهای دیگه که داریم 
+    
+  }, []);
+
   return (
     <div>
       <h1>NoteList</h1>
@@ -32,7 +46,9 @@ const NoteList: React.FC = () => {
         onDrag={handleDrag}
         style={{ width: "100px", height: "100px", backgroundColor: "red" }}
       ></div>
-      <input type="text" value={note} onChange={handleChange} />
+
+      <input ref={inputRef} type="text" value={note} onChange={handleChange} />
+
       <form onSubmit={handleAddNote}>
         <button type="submit">add</button>
       </form>
