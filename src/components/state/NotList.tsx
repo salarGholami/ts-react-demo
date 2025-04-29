@@ -5,9 +5,19 @@ const NoteList: React.FC = () => {
 
   const [notes, setNotes] = useState<string[]>([]);
 
-  const handleAddNote = () => {
+  const handleAddNote = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setNote("");
     setNotes((prevNotes) => [...prevNotes, note]);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setNote(e.target.value);
+  };
+
+  const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
+    console.log(e);
   };
 
   return (
@@ -18,12 +28,14 @@ const NoteList: React.FC = () => {
           <li key={note}>{note}</li>
         ))}
       </ul>
-      <input
-        type="text"
-        value={note}
-        onChange={(e) => setNote(e.target.value)}
-      />
-      <button onClick={handleAddNote}>add</button>
+      <div
+        onDrag={handleDrag}
+        style={{ width: "100px", height: "100px", backgroundColor: "red" }}
+      ></div>
+      <input type="text" value={note} onChange={handleChange} />
+      <form onSubmit={handleAddNote}>
+        <button type="submit">add</button>
+      </form>
     </div>
   );
 };
