@@ -8,5 +8,6 @@ const ToggleTheme = () => {
       <button onClick={toggleDarkMode}>toggleTheme</button>
     </div>
   );
+  // .
 };
 export default ToggleTheme;
