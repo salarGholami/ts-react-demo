@@ -1,4 +1,6 @@
 import "./App.css";
+import { Private } from "./components/ComponentProps/Private";
+import { Profile } from "./components/ComponentProps/Profile";
 import TaskHeader from "./components/TaskHeader";
 import List from "./components/generics/List";
 import TaskList from "./components/props/TaskList";
@@ -36,18 +38,6 @@ function App() {
         <TaskHeader name="Salar" numOfTasks={2} />
         <User user={user} />
         <TaskList taskList={tasks} />
-        {/* <List
-          items={["saheb", "Salar"]}
-          onCLick={(item) => {
-            console.log(item);
-          }}
-        />
-        <List<number>
-          items={[1, 2, 3]}
-          onCLick={(item) => {
-            console.log(item);
-          }}
-        /> */}
 
         <List<{ id: number; name: string }>
           items={[
@@ -58,6 +48,8 @@ function App() {
             console.log(item);
           }}
         />
+
+        <Private isLoggedIn={true} component={Profile} />
 
         <NoteList />
       </DarkModeProvider>
