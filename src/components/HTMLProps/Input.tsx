@@ -1,15 +1,22 @@
 import { ComponentProps } from "react";
 
-const Input = ({ className, ...rest }: ComponentProps<"input">) => {
-  return <input className={`defult-className`} {...rest} />;
+type InputProps = {
+  onChange: (value: string) => void;
+} & Omit<ComponentProps<"input">, "onChange">;
+
+const Input = ({ className, onChange, ...rest }: InputProps) => {
+  return (
+    <input
+      className={`default-className`}
+      {...rest}
+      onChange={(e) => onChange(e.target.value)}
+    />
+  );
 };
 
 const ParentInput = () => {
   return (
-    <Input
-      className="textFiled"
-      onChange={(e) => console.log(e.target.value)}
-    />
+    <Input className="textFiled" onChange={(value) => console.log(value)} />
   );
 };
 

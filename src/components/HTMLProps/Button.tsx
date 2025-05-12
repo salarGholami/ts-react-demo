@@ -2,7 +2,8 @@ import { ComponentProps } from "react";
 
 type Props = {
   variant: "primary" | "sexondary";
-} & ComponentProps<"button">;
+  children: string;
+} & Omit<ComponentProps<"button">, "children">;
 
 const Button = ({ variant, children, ...rest }: Props) => {
   return (
