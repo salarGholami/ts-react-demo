@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 type SelectProps = {
   options: {
     value: string;
@@ -16,18 +18,6 @@ export const Select = ({ options, onChange }: SelectProps) => {
       ))}
     </select>
   );
-};
-
-type Book = {
-  id: string;
-  title: string;
-  author: string;
-};
-
-type Movie = {
-  id: string;
-  title: string;
-  releasDate: string;
 };
 
 type GenericSelectProps<T> = {
@@ -61,32 +51,22 @@ export const GenericSelect = <T extends Base>({
   );
 };
 
-const books = [
-  {
-    value: "1",
-    label: "Book #1",
-  },
-  {
-    value: "2",
-    label: "Book #2",
-  },
-];
-
-const movies = [
-  {
-    value: "1",
-    label: "Movie #1",
-  },
-  {
-    value: "2",
-    label: "Movie #2",
-  },
-];
+type Book = {
+  id: string;
+  title: string;
+  author: string;
+};
 
 const newBook = [
   { id: "1", title: "Book #1", author: "Author A" },
   { id: "2", title: "Book #2", author: "Author B" },
 ];
+
+type Movie = {
+  id: string;
+  title: string;
+  releaseDate: string;
+};
 
 const newMovies = [
   {
@@ -102,24 +82,23 @@ const newMovies = [
 ];
 
 export const Parent = () => {
-  const doSomethingWithBookId = (value: string) => {};
-
-  const doSomethingWithMovieId = (value: string) => {};
+  const [book, setBook] = useState<Book | null>(null);
+  const [movie, setMovie] = useState<Movie | null>(null);
 
   return (
     <>
-      <Select options={books} onChange={doSomethingWithBookId} />
-      <Select options={movies} onChange={doSomethingWithMovieId} />
-
-      <GenericSelect
+      <GenericSelect<Book>
         options={newBook}
-        onChange={(value) => console.log(value.author)}
+        onChange={(value) => setBook(value)}
       />
 
-      <GenericSelect
+      <GenericSelect<Movie>
         options={newMovies}
-        onChange={(value) => console.log(value.)}
+        onChange={(value) => setMovie(value)}
       />
+
+      <h2>selected Book :{book?.title}</h2>
+      <h2>selected Movie :{movie?.title}</h2>
     </>
   );
 };
