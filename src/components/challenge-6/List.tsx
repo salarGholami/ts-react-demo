@@ -1,4 +1,4 @@
-import { ElementType, ReactNode } from "react";
+import { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
 type ListProps<TItem, As extends ElementType> = {
   items: TItem[];
@@ -10,9 +10,11 @@ export const List = <TItem extends { id: string }, As extends ElementType>({
   items,
   renderItem,
   as,
-}: ListProps<TItem, As>) => {
+  ...rest
+}: ListProps<TItem, As> &
+  Omit<ComponentPropsWithoutRef<As>, keyof ListProps<TItem, As>>) => {
   const Component = as ?? "ul";
-  return <Component>{items.map(renderItem)}</Component>;
+  return <Component {...rest}>{items.map(renderItem)}</Component>;
 };
 
 type Customer = {
@@ -80,8 +82,9 @@ export const Parent = () => {
 
   return (
     <>
-      <List items={orders} renderItem={renderOrder} />
+      <List items={orders} renderItem={renderOrder} as="div" />
       <List items={customers} renderItem={renderCustomer} />
+      <List items={customers} renderItem={renderCustomer} as="a" hr />
     </>
   );
 };
